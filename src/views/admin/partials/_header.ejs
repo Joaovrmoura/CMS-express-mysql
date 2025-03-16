@@ -1,0 +1,95 @@
+<!-- Botão Mobile (adicionado) -->
+  
+     <label class=" swap swap-rotate lg:hidden fixed bottom-3 right-5 z-50 transition-transform duration-300">
+        <!-- this hidden checkbox controls the state -->
+        <input type="checkbox" id="menu-toggle" />
+
+
+        <svg class="swap-off fill-current text-gray-500  bg-gray-200 rounded-full p-2" xmlns="http://www.w3.org/2000/svg" width="52" height="52"
+            viewBox="0 0 512 512">
+            <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
+        </svg>
+
+        <!-- close icon -->
+        <svg
+            class="swap-on fill-current text-gray-500 bg-gray-200 rounded-full p-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="52"
+            height="52"
+            viewBox="0 0 512 512">
+            <polygon
+            points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
+        </svg>
+
+    </label>
+
+
+
+
+    <div id="menu-sidebar" class=" bg-white flex flex-col border-r w-80 overflow-y-auto  
+    fixed lg:relative top-0 left-0 h-full lg:h-auto transform 
+    -translate-x-full lg:translate-x-0 transition-transform ease-in-out duration-300 z-40">
+
+        <button class="relative text-sm focus:outline-none group">
+            <div
+                class="flex items-center justify-center  w-full h-16 px-4 border-b border-gray-300 hover:bg-gray-300">
+                <!-- Logo -->
+                <div>
+                    <a href="/index" class="text-xl font-bold text-teal-600">ShareHub.dev</a>
+                </div>
+            </div>
+        </button>
+
+        <div class="flex flex-col flex-grow overflow-auto">
+            <a class="flex items-center flex-shrink-0 border-b h-10 
+            py-8 w-full text-sm font-medium hover:bg-gray-300 <%= currentUrl == 'addPost' ? 'bg-gray-200' : ' ' %>"
+                href="/admin/addPost">
+                <span class="leading-none pl-3 ">Adicionar Post</span>
+            </a>
+
+            <a class="flex items-center flex-shrink-0 h-10 border-b py-8  
+                text-sm font-medium hover:bg-gray-300 <%= currentUrl == 'dashboard' ? 'bg-gray-200' : ' ' %>"
+                href="/admin/dashboard">
+                <span class="leading-none pl-3">Gerenciar Posts </span>
+            </a>
+
+            <a class="flex items-center flex-shrink-0 h-10 border-b py-8 text-sm  
+                font-medium hover:bg-gray-300 <%= currentUrl == 'create' ? 'bg-gray-200' : ' ' %>"
+                href="/admin/users/create">
+                <span class="leading-none pl-3">Adicionar usuário</span>
+            </a>
+
+            <a class="flex items-center flex-shrink-0 h-10 border-b py-8 text-sm font-medium  
+            hover:bg-gray-300 <%= currentUrl == 'users' ? 'bg-gray-200' : ' ' %>"
+                href="/admin/users">
+                <span class="leading-none pl-3">Gerenciar Usuários</span>
+            </a>
+
+            <a class="flex items-center flex-shrink-0 h-10 border-b py-8 
+            text-sm font-medium hover:bg-gray-300  <%= currentUrl == 'addCategory' ? 'bg-gray-200' : ' ' %>"
+                href="/admin/addCategory">
+                <span class="leading-none pl-3">Adicionar Categoria</span>
+            </a>
+
+            <a class="flex items-center flex-shrink-0 h-10 border-b py-8  
+            text-sm font-medium hover:bg-gray-300 <%= currentUrl == 'manageCategories' ? 'bg-gray-200' : ' ' %>"
+                href="manageCategories">
+                <span class="leading-none pl-3">Gerenciar Categorias</span>
+            </a>
+        </div>
+
+    </div>
+
+   
+    <div class="flex fixed bg-white w-full items-center mr-3 flex-shrink-0 h-16 px-8 border-b border-gray-300">
+        <a href="/logout"
+            class="flex items-center justify-center h-10 px-4 ml-auto text-sm font-medium rounded hover:bg-gray-300">
+            Logout
+        </a>
+
+        <a
+            class="flex items-center justify-center h-10 px-4 ml-2 text-sm font-medium bg-gray-200 rounded hover:bg-gray-300">
+            Dashboard
+        </a>
+
+    </div>

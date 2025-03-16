@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../dist/output.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+</head>
+
+<body>
+
+    
+    <div class="flex w-screen h-screen bg-white text-gray-700">
+
+   
+        <%- include('./partials/_header') %>
+
+
+        <div class="flex flex-col mt-6 flex-grow">
+        
+
+            <div class="flex-grow p-6 mt-6 overflow-auto bg-gray-200">
+                <h2 class="font-semibold text-xl text-gray-600">Tabela de categorias adicionadas</h2>
+                <p class="text-gray-500 mb-6">Gerencie suas categorias</p>
+                <div class="grid grid-cols-3 gap-6">
+
+
+                    <div class="h-auto col-span-3 bg-white ">
+
+
+
+                        <!-- component -->
+                        <div class="xs:p-6 bg-gray-200 flex items-center justify-center">
+                            <div class="container mx-auto">
+                                <div>
+
+                                    <div class="bg-white rounded xs:p-4 xs:px-4 md:p-8 mb-6">
+
+                                        <div class="md:col-span-5">
+                                            <% if (message) { %>
+                                                <% if(message.type == 'error') { %>
+                                                    <p class="text-red-500 font-medium text-lg"><%- message.text %></p>
+                                                <% }else{ %>
+                                                    <p class="text-teal-500 font-medium text-lg"><%- message.text %></p>
+                                                 <% } %>
+                                            <% } %>
+                                        </div>
+
+                                        <table class="w-full table-auto border-collapse ">
+
+                                            <thead class="bg-white border-b sm:table-row-group hidden">
+                                                <tr>
+                                                    <th
+                                                        class="text-xs sm:text-sm w-10/12 font-medium text-gray-900 px-2 py-4 text-left">
+                                                        Titulo
+                                                    </th>
+      
+                                                    <th
+                                                        class="text-xs sm:text-sm font-medium text-gray-900 px-2 py-4 text-left">
+                                                        Editar
+                                                    </th>
+                                                    <th
+                                                        class="text-xs sm:text-sm font-medium text-gray-900 px-2 py-4 text-left">
+                                                        Deletar
+                                                    </th>
+                                                </tr>
+                                            </thead>
+
+
+                                            <tbody class="flex flex-col sm:table-row-group">
+                                                <% if(categories) { %>
+                                                    <% categories.forEach(category => { %>
+                                                <tr class="bg-gray-100 border-b flex flex-col sm:table-row w-full cursor-pointer hover:bg-gray-300">
+
+                                                    <td class="sm:text-sm text-gray-900 font-light px-2 py-4 flex flex-col sm:table-cell">
+                                                        <span class="font-medium sm:hidden">Category:</span>
+                                                       <p class="text-md font-normal text-gray-500"><%- category.title %></p>
+                                                    </td>
+                                                 <form action="editCategory" method="post">
+                                                    <td class="sm:text-sm text-gray-900 font-light px-2 py-4 flex flex-col sm:table-cell">
+                                                        <span class="font-medium sm:hidden">Edit:</span>
+                                                        <input type="hidden" name="category_id" value="<%- category.id %>">
+                                                        <button href="editCategory" class="btn btn-primary px-10 py-1 sm:text-sm">editar</button>                                                                                                           
+                                                    </td>
+                                                </form>
+                                                <form action="deleteCategory" method="post">
+                                                    <td class="sm:text-sm text-gray-900 font-light px-2 py-4 flex flex-col sm:table-cell">
+                                                        <input type="hidden" name="category_id" value="<%- category.id %>">
+                                                        <span class="font-medium sm:hidden">Delete:</span>
+                                                        <button type="submit" class="btn btn-error px-10 py-1 sm:text-sm">Deletar</button>
+                                                    </td>
+                                                </form>
+                                                </tr>
+                                                   <% }) %>
+                                                  <% }else{ %>
+                                                    <p class="text-3xl font-normal text-gray-500">Sem categorias</p>
+                                                  <% } %>
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- Component End  -->
+
+    </div>
+
+    </div>
+
+
+
+    <%- include('./partials/_footer.ejs') %>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../dist/output.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+</head>
+
+<body>
+
+    <div class="flex w-screen h-screen bg-white text-gray-700">
+
+
+        <%- include('./partials/_header.ejs') %>
+
+
+
+        <div class="flex flex-col flex-grow">
+        
+
+            <div class="flex-grow p-6 mt-6 overflow-auto bg-gray-200">
+                <h2 class="font-semibold text-xl text-gray-600 mt-6">Gerencie seu Posts</h2>
+                
+                <p class="text-gray-500 mb-6">Tabela de postagens Ativas</p>
+                <div class="grid grid-cols-3 gap-6">
+
+
+                    <div class="h-auto col-span-3 bg-white ">
+
+
+
+                        <!-- component -->
+                        <div class="xs:p-6 bg-gray-200 flex items-center justify-center">
+                            <div class="container mx-auto">
+                                <div>
+
+                                    <div class="bg-white rounded xs:p-4 xs:px-4 md:p-8 mb-6">
+                                        <div class="md:col-span-5">
+                                            <% if (message) { %>
+                                                <% if(message.type == 'error') { %>
+                                                    <p class="text-red-500 font-medium text-lg"><%- message.text %></p>
+                                                <% }else{ %>
+                                                    <p class="text-teal-500 font-medium text-lg"><%- message.text %></p>
+                                                 <% } %>
+                                            <% } %>
+                                        </div>
+                                        <table class="w-full table-auto border-collapse ">
+
+                                            <thead class="bg-white border-b sm:table-row-group hidden">
+                                                <tr>
+                                                    <th
+                                                        class="text-xs sm:text-sm font-medium text-gray-900 px-2 py-4 text-left">
+                                                        Titlo
+                                                    </th>
+                                                    <th
+                                                        class="text-xs sm:text-sm font-medium text-gray-900 px-2 py-4 text-left">
+                                                        Categoria
+                                                    </th>
+                                                    <th
+                                                        class="text-xs sm:text-sm font-medium text-gray-900 px-2 py-4 text-left">
+                                                        Editar
+                                                    </th>
+                                                    <th
+                                                        class="text-xs sm:text-sm font-medium text-gray-900 px-2 py-4 text-left">
+                                                        Deletar
+                                                    </th>
+                                                </tr>
+                                            </thead>
+
+
+                                            <tbody class="flex flex-col sm:table-row-group">
+                                                
+                                                <% if(posts) { %>
+                                                <% posts.forEach(post => { %>
+                                                    <tr class="bg-gray-100 border-b flex flex-col sm:table-row w-full">
+                                                        <td
+                                                            class="sm:text-sm text-gray-900 font-light px-2 py-4 flex flex-col sm:table-cell">
+                                                            <span class="font-medium sm:hidden">Name:</span>
+                                                            <p class="text-md font-normal text-gray-500"><%- post.post_title %></p>
+                                                        </td>
+                                                        <td
+                                                            class="sm:text-sm text-gray-900 font-light px-2 py-4 flex flex-col sm:table-cell">
+                                                            <span class="font-medium sm:hidden">Username:</span>
+                                                            
+                                                            <p class="text-md font-normal text-gray-500"><%- post.category_title ?? 'Sem categoria' %></p>
+                                                        </td>
+
+                                                        <form action="/admin/editPost" method="POST">
+                                                        <td class="sm:text-sm text-gray-900 font-light px-2 py-4 flex flex-col sm:table-cell">
+                                                            <span class="font-medium sm:hidden">Edit:</span>
+                                                            <input type="hidden" name="post_id" value="<%- post.post_id %>" id="post_id">
+                                                            <button type="submit" class="btn btn-primary px-10 py-1 sm:text-sm">editar</button>
+                                                        </td>
+                                                        </form>
+                                                  
+
+                                                        <form action="/admin/posts/<%- post.post_id %>" method="POST">
+                                                        <td class="sm:text-sm text-gray-900 font-light px-2 py-4 flex flex-col sm:table-cell">
+                                                                <span class="font-medium sm:hidden">Delete:</span>
+                                                                <input type="hidden" name="post_id" value="<%- post.post_id %>" id="post_id">
+                                                                <button type="submit" class="btn btn-error px-10 py-1 sm:text-sm">deletar</button>
+                                                            </form>
+                                                        </td>
+
+                                                    </tr>
+                                                <% }) %>
+                                               
+                                                <% }else{ %>
+                                                    <h1>NÃO EXISTEM POSTS ADICIONADOS!</h1>
+                                                 <% } %>   
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- Component End  -->
+
+    </div>
+
+    </div>
+
+<%- include('./partials/_footer.ejs') %>

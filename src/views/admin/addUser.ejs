@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/dist/output.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+</head>
+
+<body>
+
+    <div class="flex w-screen h-screen bg-white text-gray-700">
+
+
+        <%- include('./partials/_header.ejs') %>
+
+
+            <div class="flex flex-col mt-6 flex-grow">
+
+
+                <div class="flex-grow p-6 mt-6 overflow-auto bg-gray-200">
+
+                    <h2 class="font-semibold text-xl text-gray-600">Adicione usuários ao Blog</h2>
+                    <p class="text-gray-500 mb-6">Adicionar Usuários</p>
+                    <div class="grid grid-cols-3 gap-6">
+
+
+                        <div class="h-auto col-span-3 bg-white ">
+
+
+
+
+
+                            <!-- component -->
+                            <div class=" bg-gray-200 flex items-center justify-center">
+                                <div class="container mx-auto">
+                                    <div>
+
+                                        <div class="bg-white rounded p-4 px-4 md:p-8 mb-6">
+                                            <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                                                <div class="text-gray-600">
+                                                    <p class="font-medium text-lg">Gere um novo usuário</p>
+                                                    <p>Por Favor Preencha todos os Campos.</p>
+                                                </div>
+
+                                                <div class="lg:col-span-2">
+                                                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                                                        <div class="md:col-span-5">
+
+                                                            <form method="post" action="/admin/users" enctype="multipart/form-data" class="mt-3">
+
+                                                                <div class="md:col-span-5">
+                                                                    <% if (message) { %>
+                                                                        <% if(message.type == 'error') { %>
+                                                                        <p class="text-red-500 font-medium text-lg"><%- message.text %></p>
+                                                                        <% }else{ %>
+                                                                            <p class="text-teal-600 font-bold text-lg"><%- message.text %></p>
+                                                                         <% } %>
+                                                                    <% } %>
+                                                                </div>
+                                                        
+                                                                
+                                                                <label for="">Primeiro Nome</label>
+                                                                <input type="text" name="firstname" id="firstname"
+                                                                    class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                                                    value="" />
+                                                        </div>
+
+                                                        <div class="md:col-span-5">
+                                                            <label for="">Segundo Nome</label>
+                                                            <input type="text" name="lastname" id="lastname"
+                                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                                                value="" />
+                                                        </div>
+                                                        <div class="md:col-span-5">
+                                                            <label for="">Username</label>
+                                                            <input type="text" name="username" id="username"
+                                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                                                value="" />
+                                                        </div>
+
+                                                        <div class="md:col-span-5">
+                                                            <label for="email">Email</label>
+                                                            <input type="text" name="email" id="email"
+                                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                                                value="" placeholder="email@domain.com" />
+                                                        </div>
+                                                        <div class="md:col-span-5">
+                                                            <label for="">Senha</label>
+                                                                <input type="password" name="password" id="password" 
+                                                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                                                value="" placeholder="" />
+                                                        </div>
+
+                                                        <!-- Admin/Comum -->
+                                                        <div class="md:col-span-5">
+                                                            <label for="isAdmin">Admin/Comum</label>
+                                                            <select name="isAdmin" id="isAdmin" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                                                                <option value="0" >Comum</option>
+                                                                <option value="1">Admin</option>
+                                                            </select>
+                                                        </div>
+
+
+                                                        <div class="md:col-span-5">
+                                                            <label class="block text-sm font-medium text-white">
+                                                                Image
+                                                            </label>
+                                                            <div
+                                                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                                                <div class="space-y-1 text-center">
+                                                                    <svg class="mx-auto h-12 w-12" stroke="currentColor"
+                                                                        fill="none" viewBox="0 0 48 48"
+                                                                        aria-hidden="true">
+                                                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 
+                                                                        4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 
+                                                                        0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 
+                                                                        0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                    </svg>
+                                                                    <div
+                                                                        class="flex text-sm items-center text-center justify-center text-gray-600 ">
+
+                                                                        <label for="file-upload"
+                                                                            class="relative cursor-pointer rounded-md font-medium 
+                                                                        text-teal-600 hover:text-teal-500 focus-within:outline-none
+                                                                         focus-within:ring-2 focus-within:ring-offset-2 focus-within:teal-500">
+
+                                                                            <span class="">Click para Adicionar
+                                                                                Foto</span>
+                                                                            <input id="file-upload" name="avatar" type="file" class="sr-only">
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <p class="text-xs text-white">
+                                                                        PNG, JPG, GIF up to 10MB
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="md:col-span-5 text-right">
+                                                            <div class="inline-flex items-end">
+                                                                <button type="submit"
+                                                                    class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                        </form>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- Component End  -->
+
+    </div>
+
+    </div>
+
+
+<%- include('./partials/_footer.ejs') %>

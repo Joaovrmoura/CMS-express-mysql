@@ -1,0 +1,124 @@
+<%- include('./partials/_header') %>
+
+    <div class="flex flex-col bg-gray-100 justify-center">
+
+        <section>
+            <div class=" flex px-5 mb-16 w-full mt-36">
+                <div class="grid  grid-cols-1 2xl:px-64 xl:grid-cols-3 gap-8 lg:grid-cols-2 ">
+
+
+                    <% if(categoryPosts) { %>
+
+                        <% categoryPosts.forEach(posts=> { %>
+                            <div class="group cursor-pointer border p-5">
+
+                                <div class="overflow-hidden bg-gray-100 transition-all"><a
+                                        class="relative block aspect-video  hover:scale-105 "
+                                        href="/post/<%= posts.post_id %>">
+                                        <img src="<%= posts.post_thumbnail %>" alt="Thumbnail" fetchpriority="high"
+                                            decoding="async" data-nimg="fill" class="object-cover transition-all"
+                                            style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
+                                            sizes="(max-width: 768px) 30vw, 33vw"></a>
+                                </div>
+                                <div class="">
+                                    <div>
+                                        <div class="flex gap-3">
+
+                                            <a href="/category-post/<%= posts.category_id %>"
+                                                class="inline-flex items-center mb-3 font-medium  mt-5 text-teal-600 hover:text-teal-800"
+                                                title="read more">
+                                                <%= posts.category_title %> »
+                                            </a>
+                                        </div>
+
+                                        <div class="font-medium text-gray-900 sm:text-2xl md:text-2xl">
+                                            <a href="/post/<%= posts.post_id %>">
+                                                <span class="bg-gradient-to-r from-green-200 to-green-100 bg-[length:0px_10px] bg-left-bottom bg-no-repeat 
+                                            transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]
+                                             dark:from-teal-400 dark:to-teal-300">
+                                                    <%= posts.post_title %>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="mt-2 line-clamp-3 text-sm text-gray-400 ">
+                                            <a href="/post/<%= posts.post_id %>">
+                                                <%= posts.post_content %>
+                                            </a>
+                                        </div>
+
+                                        <div class="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400">
+                                            <div href="">
+                                                <div class="flex items-center gap-3">
+                                                    <div class="relative h-8 w-8 flex-shrink-0">
+                                                        <img alt="Mario Sanchez" loading="lazy" decoding="async"
+                                                            data-nimg="fill" class="rounded-full object-cover "
+                                                            src="<%= posts.author_avatar %>">
+                                                    </div><span class="truncate text-sm">
+                                                        <%= posts.author %>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <% const data=new Date(posts.post_data); const
+                                                formatData=data.toLocaleString('pt-BR', { day: '2-digit' ,
+                                                month: '2-digit' , year: 'numeric' , hour: '2-digit' , minute: '2-digit'
+                                                , second: '2-digit' }); %>
+                                                <span class="text-xs text-gray-300 dark:text-gray-600">•</span>
+                                                <time class="truncate text-sm" datetime=>
+                                                    <%= formatData %>
+                                                </time>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                                <% } else { %>
+                                    <span class=" text-3xl w-full flex items-center justify-center">
+                                        Nenhum post encontrado<span class="text-teal-500">. . .</span>
+                                    </span>
+                                    <% } %>
+
+
+                </div>
+            </div>
+
+        </section>
+
+
+
+
+
+
+
+        <section class="py-20 px-2 border-t">
+            <div class="container mx-auto max-w-4xl">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+
+
+
+                    <% if(categories) { %>
+                        <% categories.forEach((categorie, key)=> { %>
+                            <!-- Itens como tags/texto -->
+                            <a href="/category-post/<%= categorie.id %>" class="flex space-x-6 ml-3 sm:ml-0">
+                                <h1 class="font-medium text-gray-900 sm:text-3xl text-4xl md:text-4xl">
+                                    <%= key + 1,  %>
+                                </h1>
+                                <span class="w-16 h-1 bg-teal-500 mt-4"></span>
+        
+                                <div>
+                                    <h1 class="font-medium text-gray-900 sm:text-2xl text-3xl  md:text-2xl mb-5">
+                                        <%= categorie.title %>
+                                    </h1>
+                                </div>
+                            </a>
+                            <!-- Itens como tags/texto -->
+                            <% }) %>
+                                <% }%>
+
+                </div>
+            </div>
+        </section>
+
+
+        <%- include('./partials/_footer.ejs') %>

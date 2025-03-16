@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/dist/output.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body class="">
+
+
+    <nav class="bg-white shadow fixed w-full z-50">
+
+        <div class="mx-auto lg:px-48 md:px-28 px-4">
+            <div class="flex items-center justify-between py-4">
+                <!-- Logo -->
+                <div>
+                    <a href="/index" class="text-xl font-bold text-teal-600">ShareHub.dev</a>
+                </div>
+
+                <!-- Menu Desktop -->
+                <div class="hidden md:flex md:items-center space-x-6">
+                    <a href="/blog" class="text-gray-800 text-sm font-semibold hover:text-teal-600">Blog</a>
+                    <a href="#" class="text-gray-800 text-sm font-semibold hover:text-teal-600">Services</a>
+                    <a href="#" class="text-gray-800 text-sm font-semibold hover:text-teal-600">About</a>
+                    <a href="#" class="text-gray-800 text-sm font-semibold hover:text-teal-600">Contact</a>
+                </div>
+
+                <!-- Ações (Login e Signup) -->
+                <div id="activeDropdown" class="hidden md:flex h-10 md:items-center space-x-4">
+
+
+                    <% if(userSession) { %>
+                          <div class=" rounded-full p-5">
+                            <div tabindex="0" role="button">
+                                <img class=" w-12 bg-slate-200 rounded-full" src="<%- userSession.avatar %>" alt="">
+                            </div>
+                            <ul id="showDrop" class=" hidden ease-in absolute duration-4000 dropdown-conten mt-4 mx-auto bg-white z-1 shadow-sm  flex flex-col">
+                              <li class=" py-3 w-full hover:bg-slate-100 cursor-pointer" >
+                                <a href="/admin/dashboard" class="text-gray-600 p-3 text-sm font-medium ">
+                                Dashboard</a>
+                              </li>
+                              <li class=" py-3 w-full hover:bg-slate-100 cursor-pointer" >
+                                <a href="/logout" class="text-gray-600 text-sm p-3  font-medium ">Logout
+                                 </a>
+                            </li>
+                            </ul>
+                          </div>
+
+
+                    <% }else{ %>
+                           <a href="/login" class="text-gray-800 text-sm font-semibold hover:text-teal-600">Sign in</a>
+                            <a href="/register"
+                            class="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-teal-600 hover:border-teal-600">
+                                Sign up
+                            </a>
+                    <% } %>
+                   
+
+                </div>
+
+                <!-- Botão Mobile -->
+                <!-- Botão Mobile -->
+                <label for="menu-toggle"
+                    class=" m-1 swap swap-rotate text-gray-500 absolute right-5 top-3 md:hidden z-50">
+
+                    <input type="checkbox" id="menu-toggle" />
+
+                    <!-- Ícone de menu -->
+                    <svg class="swap-off fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                        viewBox="0 0 512 512">
+                        <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
+                    </svg>
+
+                    <svg class="swap-on fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                        viewBox="0 0 512 512">
+                        <polygon points="400 145.49 366.51 112 256 222.51 145.49 
+                            112 112 145.49 222.51 256 112 366.51 145.49 
+                            400 256 289.49 366.51 400 400 366.51 289.49 
+                            256 400 145.49" />
+                    </svg>
+
+                </label>
+
+                <!-- Menu Mobile -->
+                <div id="mobile-menu" class="
+                        fixed 
+                        top-0 
+                        left-0 w-full 
+                        lg:mx-10
+                        bg-white 
+                        py-5 px-5 
+                        transition-all duration-600
+                        -translate-y-full opacity-0 
+                        pointer-events-none
+                        md:hidden">
+                    <!-- Logo -->
+                    <div class="mb-3">
+                        <a href="index" class="text-xl font-bold text-teal-600">ShareHub.dev</a>
+                    </div>
+
+                    <div class="flex flex-col space-y-3  mb-3">
+                        <a href="blog" class="text-gray-800 text-md font-semibold  hover:text-teal-600">Blog</a>
+                        <a href="#" class="text-gray-800 text-md font-semibold hover:text-teal-600">Marketplace</a>
+                        <a href="#" class="text-gray-800 text-md font-semibold hover:text-teal-600">Partners</a>
+                        <a href="#" class="text-gray-800 text-md font-semibold hover:text-teal-600">Pricing</a>
+                    </div>
+                    <div class="border-t-2"></div>
+                    <div class="gap-5 flex w-28 flex-col mt-5">
+
+                        <% if(userSession) { %>
+                            <a href="/admin/dashboard" class="text-gray-800 text-sm font-semibold 
+                            border px-4 py-2 rounded-lg hover:text-teal-600 hover:border-teal-600">
+                                Dashboard
+                            </a>
+                            <a href="logout" class="text-gray-800 text-sm font-semibold 
+                            border px-4 py-2 rounded-lg hover:text-red-400 hover:border-teal-600">
+                                Logout
+                            </a>
+                        <% }else{ %>
+                               <a href="/login" class="text-gray-800 text-sm font-semibold hover:text-teal-600">Sign in</a>
+                                <a href="/register"
+                                class="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-teal-600 hover:border-teal-600">
+                                    Sign up
+                                </a>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+    </nav>
