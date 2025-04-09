@@ -1,8 +1,8 @@
 const router = require('express').Router()
 const {authenticated} = require('../middlewares/userAuth')
-const postController = require('../controllers/PostController')
-const categoryController = require('../controllers/CategoryController')
-const UserController = require('../controllers/UserController')
+const postController = require('../controllers/admin/PostController')
+const categoryController = require('../controllers/admin/CategoryController')
+const UserController = require('../controllers/admin/UserController')
 
 // Middleware para definir currentUrl nas rotas da dashboard
 router.use((req, res, next) => {

@@ -1,4 +1,4 @@
-const modelCategories = require('../models/Category')
+const modelCategories = require('../../models/Category')
 
 const CategoryController = {
 
@@ -8,28 +8,26 @@ const CategoryController = {
     },
 
     async showCategories(req, res){
-        const message = req.session.message
-        delete req.session.message
         try{
+            const message = req.session.message
+            delete req.session.message
             const categories = await modelCategories.allCategories()
             res.render('manageCategories', {categories, message})
         }catch(error){
-            console.log(error)
-            return false
+            next(error);
         }
     },
 
     async editCategory(req, res){
-        const message = req.session.message
-        delete req.session.message
         try{
+            const message = req.session.message
+            delete req.session.message
             const {category_id} = req.body
             const category = await modelCategories.category(category_id)
     
             res.render('editCategory', {category, message})
         }catch(error){
-            console.log(error)
-            return false
+            next(error);
         }
     },
 
@@ -49,42 +47,50 @@ const CategoryController = {
 
             const categorie = await modelCategories.addCategory(title, description)
 
-            if(categorie){
+            if(categorie)
                 return redirectResponse(req, res, 'success', 'categoria adicionada com sucesso!')
-            }else{
-                return redirectResponse(req, res, 'error', 'Algo deu errado ao adicionar categoria!')
-            }
+         
+            return redirectResponse(req, res, 'error', 'Algo deu errado ao adicionar categoria!')
+            
 
         }catch(error){
-            console.log(error)
-            redirectResponse(req, res, 'error', 'ALgo deu errado ao adicionar categoria!')
+            next(error);
         }
     },
   
         
     async postEditCategory(req, res){
-        const {category_id, title, description} = req.body
-        const categorieEdit = await modelCategories.editCategory(category_id, title, description)
-
-        if(categorieEdit){
-            req.session.message = { type: 'success', text: 'categoria Editada com sucesso!' }
-            return res.redirect('manageCategories')
-        }else{
+        try{
+            const {category_id, title, description} = req.body
+            const categorieEdit = await modelCategories.editCategory(category_id, title, description)
+    
+            if(categorieEdit){
+                req.session.message = { type: 'success', text: 'categoria Editada com sucesso!' }
+                return res.redirect('manageCategories')
+            }
             req.session.message = { type: 'error', text: 'Erro ao editar categoria!' }
             return res.redirect('manageCategories')
+            
+        }catch(error){
+            next(error);
         }
+      
     },
 
     async deleteCategory(req, res){
-        const {category_id} = req.body
-        const category_delete = await modelCategories.deleteCategory(category_id)
-        
-        if(category_delete){
-            req.session.message = { type: 'success', text: 'categoria deletada com sucesso!' }
-            return res.redirect('manageCategories')
-        }else{
+        try{
+            const {category_id} = req.body
+            const category_delete = await modelCategories.deleteCategory(category_id)
+            
+            if(category_delete){
+                req.session.message = { type: 'success', text: 'categoria deletada com sucesso!' }
+                return res.redirect('manageCategories')
+            }
             req.session.message = { type: 'error', text: 'Erro ao deletar categoria!' }
             return res.redirect('manageCategories')
+            
+        }catch(error){
+            next(error);
         }
     }
 }

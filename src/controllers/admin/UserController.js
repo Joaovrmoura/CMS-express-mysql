@@ -1,7 +1,6 @@
-const userModel = require('../models/user')
-const upload = require('../middlewares/uploads')
+const userModel = require('../../models/user')
+const upload = require('../../middlewares/uploads')
 const bcrypt = require('bcrypt')
-
 
 const UserController = {
 
@@ -11,13 +10,13 @@ const UserController = {
     },
 
     async login(req, res) {
-        const { email, password } = req.body
         try {
+            const { email, password } = req.body
             const userLogin = await userModel.login(email, password)
 
             if (userLogin) {
 
-                const matchPassword = await userModel.comparePassword(password, userLogin.password)
+                const matchPassword = await bcrypt.compare(password, userLogin.password)
 
                 if (matchPassword) {
                     req.session.userSession = userLogin
@@ -30,8 +29,7 @@ const UserController = {
                 return errorResponse(req, res, 'error', 'Usuário não está cadastrado!')
             }
         } catch (error) {
-            console.log(error);
-            throw error
+            next(error);
         }
     },
 
@@ -76,8 +74,7 @@ const UserController = {
             })
 
         } catch (error) {
-            console.log(error);
-            throw error
+            next(error);
         }
     },
 
@@ -118,8 +115,7 @@ const UserController = {
             })
 
         } catch (error) {
-            console.log(error);
-            throw error
+            next(error);
         }
     },
 
@@ -159,13 +155,11 @@ const UserController = {
             })
 
         } catch (error) {
-            console.log(error);
-            throw error
+            next(error);
         }
     },
 
     async deleteUser(req, res) {
-
         try {
             const { user_id } = req.body
             const userDelete = userModel.deleteUser(user_id)
@@ -177,9 +171,7 @@ const UserController = {
                 return res.redirect('users')
             }
         } catch (error) {
-            console.log(error)
-            req.session.message = { type: 'error', text: 'Não foi possível deletar usuário'}
-            return res.redirect('users')
+            next(error);
         }
     },
 
@@ -191,26 +183,28 @@ const UserController = {
 
 
     async manageUsers(req, res) {
-        const message = req.session.message
-        delete req.session.message
-
         try {
+            const message = req.session.message
+            delete req.session.message
             const allUsers = await userModel.allUsers()
             return res.render('manageUser', { allUsers, message })
 
         } catch (error) {
-            console.log(error);
-            throw error
+            next(error);
         }
     },
 
     async showEditForm(req, res){
-        const { id } = req.params
-        const user = await userModel.showUser(id)
-
-        const message = req.session.message
-        delete req.session.message
-        return res.render('editUser', { user, message })
+        try{
+            const { id } = req.params
+            const user = await userModel.showUser(id)
+    
+            const message = req.session.message
+            delete req.session.message
+            return res.render('editUser', { user, message })
+        }catch(error){
+            next(error);
+        }
     }
 
 }

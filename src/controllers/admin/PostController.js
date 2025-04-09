@@ -1,7 +1,7 @@
-const modelPost = require('../models/Post')
-const modelCategories = require('../models/Category')
-const upload = require('../middlewares/uploads')
-const modelUser = require('../models/user')
+const modelPost = require('../../models/Post')
+const modelCategories = require('../../models/Category')
+const upload = require('../../middlewares/uploads')
+const modelUser = require('../../models/user')
 
 const PostController = {
 
@@ -13,33 +13,48 @@ const PostController = {
 
     //all posts from dashboard
     async allPosts(req, res){
-        const posts = await modelPost.allPosts()
-        const message = req.session.message
-        delete req.session.message
-        
-        req.session.posts = posts
-        return res.render('dashboard', { posts, message})
+        try{
+            const posts = await modelPost.allPosts()
+            const message = req.session.message
+            delete req.session.message
+            
+            req.session.posts = posts
+            return res.render('dashboard', { posts, message})
+        }catch(error){
+            next(error);
+        }
+     
     },
 
     async getAddPost(req, res){
-        const categories = await modelCategories.allCategories()
-        const message = req.session.message
-        delete req.session.message
-        
-        const userSession = req.session.userSession
-        res.render('addPost', { categories, userSession, message })
+        try{
+            const categories = await modelCategories.allCategories()
+            const message = req.session.message
+            delete req.session.message
+            
+            const userSession = req.session.userSession
+            res.render('addPost', { categories, userSession, message })
+        }catch(error){
+            next(error);
+        }
+      
     },
     
     async editPost(req, res){
-        const {post_id} = req.body
-        const categories = await modelCategories.allCategories()
-        const message = req.session.message
-        
-        const post = await modelPost.post(post_id)
-        const userSession = req.session.userSession
-        
-        delete req.session.message
-        res.render('editPost', { categories, userSession, post, message })
+        try{
+            const {post_id} = req.body
+            const categories = await modelCategories.allCategories()
+            const message = req.session.message
+            
+            const post = await modelPost.post(post_id)
+            const userSession = req.session.userSession
+            
+            delete req.session.message
+            res.render('editPost', { categories, userSession, post, message })
+        }catch(error){
+            next(error);
+        }
+      
     },
 
     async postEditPost(req, res){
@@ -81,8 +96,7 @@ const PostController = {
             return false
 
         } catch (error) {
-            console.log(error);
-            throw error
+            next(error);
         }
     },
 
@@ -131,8 +145,7 @@ const PostController = {
             return false
 
         } catch (error) {
-            console.log(error);
-            throw error
+            next(error);
         }
     },
 
@@ -150,8 +163,7 @@ const PostController = {
             }
 
         } catch (error) {
-            console.log(error)
-            return false
+            next(error);
         }
     },
 
