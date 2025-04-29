@@ -5,11 +5,13 @@ const PORT = process.env.PORT || 3060
 const path = require('path')
 const publicRoutes = require('./src/routes/public')
 const privateRoutes = require('./src/routes/private')
+const methodOverride = require('method-override');
+const errorHandler = require('./src/middlewares/errorHandler')
 
 const session = require('express-session')
 
 app.use(session({
-    secret: 'eoeoi)Ç{{^^)_)QLsesdfdffejodDLW#5w0@%¨@¨@H)(_',
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false } 
@@ -19,6 +21,7 @@ app.use(session({
 app.use(express.json())
 app.use(express.urlencoded({urlencoded:true}))
 
+app.use(methodOverride('_method')); 
 
 app.use('/', publicRoutes)
 app.use('/admin', privateRoutes)
@@ -32,7 +35,7 @@ app.set('views', [
 ])
 
 app.use(express.static(path.join(__dirname, 'src', 'public')))
-
+app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log(`APP ${__dirname} RUNING ON http://localhost:${PORT}/index`);
