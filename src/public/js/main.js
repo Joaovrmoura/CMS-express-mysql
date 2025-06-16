@@ -1,16 +1,3 @@
-const menuToggle = document.getElementById('menu-toggle');
-const openMenu = document.getElementById('menu-sidebar');
-
-menuToggle.addEventListener('change', function () {
-    if (menuToggle.checked) {
-        openMenu.classList.remove('-translate-x-full'); // Abre o menu
-    } else {
-        openMenu.classList.add('-translate-x-full'); // Fecha o menu
-    }
-});
-
-
-
 import { Editor } from 'https://esm.sh/@tiptap/core@2.6.6';
 import StarterKit from 'https://esm.sh/@tiptap/starter-kit@2.6.6';
 import Highlight from 'https://esm.sh/@tiptap/extension-highlight@2.6.6';
@@ -23,6 +10,20 @@ import TextStyle from 'https://esm.sh/@tiptap/extension-text-style@2.6.6';
 import FontFamily from 'https://esm.sh/@tiptap/extension-font-family@2.6.6';
 import { Color } from 'https://esm.sh/@tiptap/extension-color@2.6.6';
 import Bold from 'https://esm.sh/@tiptap/extension-bold@2.6.6'; // Import the Bold extension
+// Adicione esta linha com as outras importações
+import Paragraph from 'https://esm.sh/@tiptap/extension-paragraph@2.6.6';
+
+const menuToggle = document.getElementById('menu-toggle');
+const openMenu = document.getElementById('menu-sidebar');
+
+menuToggle.addEventListener('change', function () {
+    if (menuToggle.checked) {
+        openMenu.classList.remove('-translate-x-full'); // Abre o menu
+    } else {
+        openMenu.classList.add('-translate-x-full'); // Fecha o menu
+    }
+});
+
 
 
 window.addEventListener('load', function() {
@@ -64,6 +65,17 @@ window.addEventListener('load', function() {
             };
         },
     });
+       // CRIE A EXTENSÃO CUSTOMIZADA DE PARÁGRAFO
+    const CustomParagraph = Paragraph.extend({
+        addAttributes() {
+            return {
+                ...this.parent?.(),
+                style: {
+                    default: 'margin-bottom: 1rem; display: block;', // Adicione display:block para garantir
+                },
+            };
+        },
+    });
 
     const contentPost = document.getElementById('content')
     
@@ -73,12 +85,14 @@ window.addEventListener('load', function() {
         extensions: [
             StarterKit.configure({
                 textStyle: false,
+                paragraph: false, // Desativa o parágrafo padrão
                 bold: false,
                 marks: {
                     bold: false,
                 },
             }),
             // Include the custom Bold extension
+            CustomParagraph,
             CustomBold,
             TextStyle,
             Color,

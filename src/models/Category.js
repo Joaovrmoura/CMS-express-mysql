@@ -4,7 +4,7 @@ const connect = require('../database/config')
 const Category = {
     async allCategories(){
         const connection = await connect()
-        const sql = 'SELECT * FROM categories'
+        const sql = 'SELECT * FROM categories LIMIT 4'
         const [rows] = await connection.query(sql)
         return rows
     },

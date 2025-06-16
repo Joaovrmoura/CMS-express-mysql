@@ -18,7 +18,7 @@ const Post = {
         FROM 
             posts p
         LEFT JOIN categories c ON p.category_id = c.id 
-        LEFT JOIN users u ON p.author_id = u.id`
+        LEFT JOIN users u ON p.author_id = u.id LIMIT 3`
 
         const [rows] = await connection.query(sql)
         return rows

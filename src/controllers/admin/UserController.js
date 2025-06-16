@@ -1,6 +1,6 @@
 const userModel = require('../../models/user')
 const upload = require('../../middlewares/uploads')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 const UserController = {
 
